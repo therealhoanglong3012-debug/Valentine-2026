@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>For My Pink & Blue Girl 💕💙</title>
@@ -10,17 +10,11 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background: linear-gradient(to right, #ffb6d9, #b5d8ff);
-    overflow: hidden;
 }
-
 .container {
     margin-top: 100px;
 }
-
-h1 {
-    color: #ff4d8d;
-}
-
+h1 { color: #ff4d8d; }
 button {
     padding: 12px 25px;
     margin: 10px;
@@ -32,14 +26,8 @@ button {
     color: white;
     transition: 0.3s;
 }
-
-button:hover {
-    background-color: #6fb8ff;
-}
-
-.hidden {
-    display: none;
-}
+button:hover { background-color: #6fb8ff; }
+.hidden { display: none; }
 </style>
 </head>
 
@@ -55,20 +43,46 @@ button:hover {
 
     <div id="loveMeter" class="hidden">
         <h2 id="percentage">0%</h2>
-        <button id="nextBtn">Tăng nữa đi 💕</button>
+        <button id="nextBtn"></button>
     </div>
 
     <div id="celebration" class="hidden">
-        <h1>Vậy là anh tiếp tục được yêu em rồi đó 💗💙</h1>
-        <p>
-            Anh mê nhất là cái giọng em làm nũng…  
-            nghe dễ thương khum chịu đượcc 🥺💕  
-        </p>
-        <p>🎶 Every breath you take… anh đều nghĩ về em 💕</p>
+        <h1 id="finalTitle"></h1>
+        <p id="finalMessage"></p>
     </div>
+
+    <button id="musicBtn">🎵 Play Music</button>
 </div>
 
+<audio id="bgMusic" loop>
+    <source src="every-breath-you-take.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+
+/* =========================
+   EDIT YOUR CONTENT HERE
+========================= */
+
+const CONFIG = {
+    firstQuestion: "Do you remember the first day we started dating? 💕",
+    firstYes: "Of course I do 💗",
+    firstNo: "Maybe... 😜",
+    secretMessage: "From that day until now, I have never once regretted loving you ❤️",
+
+    secondQuestion: "How much do you love me now?",
+    loveButton: "More and more 💕",
+
+    finalQuestion: "Will you keep being my Valentine this year? 🥺💗",
+    finalYes: "Always 💕",
+    finalNo: "Let me think... 😆",
+
+    celebrationTitle: "So I get to keep loving you 💗💙",
+    celebrationMessage: "Your cute baby voice when you act spoiled... I can’t handle how adorable it is 🥺💕"
+};
+
+/* ========================= */
+
 let step = 1;
 let love = 0;
 
@@ -79,27 +93,36 @@ const loveMeter = document.getElementById("loveMeter");
 const percentage = document.getElementById("percentage");
 const nextBtn = document.getElementById("nextBtn");
 const celebration = document.getElementById("celebration");
+const finalTitle = document.getElementById("finalTitle");
+const finalMessage = document.getElementById("finalMessage");
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
 
 function loadStep1() {
-    question.innerText = "Em còn nhớ ngày đầu mình quen nhau không? 💕";
-    yesBtn.innerText = "Nhớ chứ 💗";
-    noBtn.innerText = "Giả vờ quên 😜";
+    question.innerText = CONFIG.firstQuestion;
+    yesBtn.innerText = CONFIG.firstYes;
+    noBtn.innerText = CONFIG.firstNo;
 }
 
 yesBtn.onclick = function() {
+
     if (step === 1) {
-        alert("Từ hôm đó tới giờ, anh chưa từng hối hận vì yêu em ❤️");
+        alert(CONFIG.secretMessage);
         step = 2;
-        question.innerText = "Em thương anh nhiều cỡ nào rồi nè?";
+        question.innerText = CONFIG.secondQuestion;
         loveMeter.classList.remove("hidden");
         yesBtn.classList.add("hidden");
         noBtn.classList.add("hidden");
-    } 
+        nextBtn.innerText = CONFIG.loveButton;
+    }
+
     else if (step === 3) {
         question.classList.add("hidden");
         yesBtn.classList.add("hidden");
         noBtn.classList.add("hidden");
         celebration.classList.remove("hidden");
+        finalTitle.innerText = CONFIG.celebrationTitle;
+        finalMessage.innerText = CONFIG.celebrationMessage;
     }
 };
 
@@ -110,9 +133,9 @@ nextBtn.onclick = function() {
     if (love >= 500) {
         step = 3;
         loveMeter.classList.add("hidden");
-        question.innerText = "Valentine này… em tiếp tục làm người yêu anh nhé? 🥺💗";
-        yesBtn.innerText = "Đương nhiên rồi 💕";
-        noBtn.innerText = "Anh hỏi lại coi 😆";
+        question.innerText = CONFIG.finalQuestion;
+        yesBtn.innerText = CONFIG.finalYes;
+        noBtn.innerText = CONFIG.finalNo;
         yesBtn.classList.remove("hidden");
         noBtn.classList.remove("hidden");
     }
@@ -124,8 +147,20 @@ noBtn.onclick = function() {
     noBtn.style.top = Math.random() * 80 + "%";
 };
 
+musicBtn.onclick = function() {
+    if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.innerText = "🔇 Stop Music";
+    } else {
+        bgMusic.pause();
+        musicBtn.innerText = "🎵 Play Music";
+    }
+};
+
 loadStep1();
+
 </script>
 
 </body>
 </html>
+
