@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>For My Pink & Blue Girl 💕💙</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ffb6d9, #b5d8ff);
+    overflow: hidden;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+h1 {
+    color: #ff4d8d;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #ff6fa5;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #6fb8ff;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="question"></h1>
+
+    <div id="buttons">
+        <button id="yesBtn"></button>
+        <button id="noBtn"></button>
+    </div>
+
+    <div id="loveMeter" class="hidden">
+        <h2 id="percentage">0%</h2>
+        <button id="nextBtn">Tăng nữa đi 💕</button>
+    </div>
+
+    <div id="celebration" class="hidden">
+        <h1>Vậy là anh tiếp tục được yêu em rồi đó 💗💙</h1>
+        <p>
+            Anh mê nhất là cái giọng em làm nũng…  
+            nghe dễ thương khum chịu đượcc 🥺💕  
+        </p>
+        <p>🎶 Every breath you take… anh đều nghĩ về em 💕</p>
+    </div>
+</div>
+
+<script>
+let step = 1;
+let love = 0;
+
+const question = document.getElementById("question");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const loveMeter = document.getElementById("loveMeter");
+const percentage = document.getElementById("percentage");
+const nextBtn = document.getElementById("nextBtn");
+const celebration = document.getElementById("celebration");
+
+function loadStep1() {
+    question.innerText = "Em còn nhớ ngày đầu mình quen nhau không? 💕";
+    yesBtn.innerText = "Nhớ chứ 💗";
+    noBtn.innerText = "Giả vờ quên 😜";
+}
+
+yesBtn.onclick = function() {
+    if (step === 1) {
+        alert("Từ hôm đó tới giờ, anh chưa từng hối hận vì yêu em ❤️");
+        step = 2;
+        question.innerText = "Em thương anh nhiều cỡ nào rồi nè?";
+        loveMeter.classList.remove("hidden");
+        yesBtn.classList.add("hidden");
+        noBtn.classList.add("hidden");
+    } 
+    else if (step === 3) {
+        question.classList.add("hidden");
+        yesBtn.classList.add("hidden");
+        noBtn.classList.add("hidden");
+        celebration.classList.remove("hidden");
+    }
+};
+
+nextBtn.onclick = function() {
+    love += 100;
+    percentage.innerText = love + "%";
+
+    if (love >= 500) {
+        step = 3;
+        loveMeter.classList.add("hidden");
+        question.innerText = "Valentine này… em tiếp tục làm người yêu anh nhé? 🥺💗";
+        yesBtn.innerText = "Đương nhiên rồi 💕";
+        noBtn.innerText = "Anh hỏi lại coi 😆";
+        yesBtn.classList.remove("hidden");
+        noBtn.classList.remove("hidden");
+    }
+};
+
+noBtn.onclick = function() {
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random() * 80 + "%";
+    noBtn.style.top = Math.random() * 80 + "%";
+};
+
+loadStep1();
+</script>
+
+</body>
+</html>
